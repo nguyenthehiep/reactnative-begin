@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { Button, View, Text, SafeAreaView } from 'react-native';
 
-const SettingScreen = ({ route, navigation }) => {
+const SettingScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={{ flex: 1, padding: 16 }}>
