@@ -42,7 +42,9 @@ const SecondActivity_StackNavigator = createStackNavigator({
   },
 });
 
+const Drawer = createDrawerNavigator();
 const DrawerNavigatorRoutes = createDrawerNavigator(
+  
   {
     HomeScreen: {
       screen: FirstActivity_StackNavigator,

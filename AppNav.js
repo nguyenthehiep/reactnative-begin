@@ -1,5 +1,7 @@
 import React from 'react';
 import { Button, View, Text } from 'react-native';
+
+//React Native 5.x version
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'

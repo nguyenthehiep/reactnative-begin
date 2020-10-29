@@ -5,8 +5,10 @@
 import React from 'react';
 
 //Import Navigators from React Navigation
+//React Native below 4.x
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
+
 
 //Import all the screens needed
 import SplashScreen from './app/src/SplashScreen';
