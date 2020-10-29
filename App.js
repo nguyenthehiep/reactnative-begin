@@ -1,64 +1,159 @@
-/* This is an Login Registration example from https://aboutreact.com/ */
-/* https://aboutreact.com/react-native-login-and-signup/ */
+// React Navigate Drawer with Bottom Tab – Example using React Navigation V5 //
+// https://aboutreact.com/bottom-tab-view-inside-navigation-drawer //
+import 'react-native-gesture-handler';
 
-//Import React
-import React from 'react';
+import * as React from 'react';
+import { Button, View, Text, TouchableOpacity, Image } from 'react-native';
 
-//Import Navigators from React Navigation
-//React Native below 4.x
-import { createAppContainer, createSwitchNavigator } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
+import { NavigationContainer, getFocusedRouteNameFromRoute } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
+import HomeScreen from './app/src/pages/HomeScreen';
+import ExploreScreen from './app/src/pages/ExploreScreen';
+import SettingScreen from './app/src/pages/SettingScreen';
 
-//Import all the screens needed
-import SplashScreen from './app/src/SplashScreen';
-import LoginScreen from './app/src/LoginScreen';
-import RegisterScreen from './app/src/RegisterScreen';
-import DrawerNavigationRoutes from './app/src/DrawerNavigationRoutes';
+const Stack = createStackNavigator();
+const Drawer = createDrawerNavigator();
+const Tab = createBottomTabNavigator();
 
-const Auth = createStackNavigator({
-  //Stack Navigator for Login and Sign up Screen
-  LoginScreen: {
-    screen: LoginScreen,
-    navigationOptions: {
-      headerShown: false,
-    },
-  },
-  RegisterScreen: {
-    screen: RegisterScreen,
-    navigationOptions: {
-      title: 'Register',
-      headerStyle: {
-        backgroundColor: '#307ecc',
-      },
-      headerTintColor: '#fff',
-    },
-  },
-});
+const NavigationDrawerStructure = (props)=> {
+  //Structure for the navigatin Drawer
+  const toggleDrawer = () => {
+    //Props to open/close the drawer
+    props.navigationProps.toggleDrawer();
+  };
 
-/* Switch Navigator for those screens which needs to be switched only once
-  and we don't want to switch back once we switch from them to the next one */
-const App = createSwitchNavigator({ 
-  SplashScreen: {
-    /* SplashScreen which will come once for 5 Seconds */
-    screen: SplashScreen,
-    navigationOptions: {
-      /* Hiding header for Splash Screen */
-      headerShown: false,
-    },
-  },
-  Auth: {
-    /* Auth Navigator which includer Login Signup will come once */
-    screen: Auth,
-  },
-  DrawerNavigationRoutes: {
-    /* Navigation Drawer as a landing page */
-    screen: DrawerNavigationRoutes,
-    navigationOptions: {
-      /* Hiding header for Navigation Drawer as we will use our custom header */
-      headerShown: false,
-    },
-  },
-});
+  return (
+    <View style={{ flexDirection: 'row' }}>
+      <TouchableOpacity onPress={()=> toggleDrawer()}>
+        {/*Donute Button Image */}
+        <Image
+          source={{uri: 'https://raw.githubusercontent.com/AboutReact/sampleresource/master/drawerWhite.png'}}
+          style={{ width: 25, height: 25, marginLeft: 5 }}
+        />
+      </TouchableOpacity>
+    </View>
+  );
+}
 
-export default createAppContainer(App);
+function getHeaderTitle(route) {
+  const routeName = getFocusedRouteNameFromRoute(route) ?? 'Feed';
+
+  switch (routeName) {
+    case 'HomeScreen':
+      return 'Home';
+    case 'ExploreScreen':
+      return 'Explore';
+    case 'BottomTabStack':
+      return 'Home';
+  }
+}
+
+function BottomTabStack() {
+  return (
+    <Tab.Navigator
+      initialRouteName="HomeScreen"
+      tabBarOptions={{
+        activeTintColor: 'tomato',
+        inactiveTintColor: 'gray',
+        style: {
+          backgroundColor: '#e0e0e0',
+        },
+        labelStyle: {
+          textAlign: 'center',
+          fontSize: 16
+        },
+      }}>
+      <Tab.Screen
+        name="HomeScreen"
+        component={HomeScreen}
+        options={{
+          tabBarLabel: 'Home Screen',
+          // tabBarIcon: ({ color, size }) => (
+          //   <MaterialCommunityIcons name="home" color={color} size={size} />
+          // ),
+        }}  />
+      <Tab.Screen
+        name="ExploreScreen"
+        component={ExploreScreen}
+        options={{
+          tabBarLabel: 'Explore Screen',
+          // tabBarIcon: ({ color, size }) => (
+          //   <MaterialCommunityIcons name="settings" color={color} size={size} />
+          // ),
+        }} />
+    </Tab.Navigator>
+  );
+}
+
+function HomeScreenStack({ navigation }) {
+  return (
+    <Stack.Navigator initialRouteName="HomeScreen">
+      <Stack.Screen
+        name="BottomTabStack"
+        component={BottomTabStack}
+        options={({ route }) => ({
+          headerTitle: getHeaderTitle(route),
+          headerLeft: ()=> <NavigationDrawerStructure navigationProps={navigation} />,
+          headerStyle: {
+            backgroundColor: '#f4511e', //Set Header color
+          },
+          headerTintColor: '#fff', //Set Header text color
+          headerTitleStyle: {
+            fontWeight: 'bold', //Set Header text style
+          },
+        })}
+      />
+    </Stack.Navigator>
+  );
+}
+
+function SettingScreenStack({ navigation }) {
+  return (
+    <Stack.Navigator
+      initialRouteName="SecondPage"
+      screenOptions={{
+        headerLeft: ()=> <NavigationDrawerStructure navigationProps={navigation} />,
+        headerStyle: {
+          backgroundColor: '#f4511e', //Set Header color
+        },
+        headerTintColor: '#fff', //Set Header text color
+        headerTitleStyle: {
+          fontWeight: 'bold', //Set Header text style
+        }
+      }}>
+      <Stack.Screen
+        name="SettingScreen"
+        component={SettingScreen}
+        options={{
+          title: 'Setting', //Set Header Title
+          
+        }}/>
+    </Stack.Navigator>
+  );
+}
+
+function App() {
+  return (
+    <NavigationContainer>
+      <Drawer.Navigator
+        drawerContentOptions={{
+          activeTintColor: '#e91e63',
+          itemStyle: { marginVertical: 5 },
+        }}>
+        <Drawer.Screen
+          name="HomeScreenStack"
+          options={{ drawerLabel: 'Home Screen Option' }}
+          component={HomeScreenStack} />
+        <Drawer.Screen
+          name="SettingScreenStack"
+          options={{ drawerLabel: 'Setting Screen Option' }}
+          component={SettingScreenStack} />
+      </Drawer.Navigator>
+    </NavigationContainer>
+  );
+}
+
+export default App;

@@ -10,9 +10,9 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import HomeScreen from './pages/HomeScreen';
-import ExploreScreen from './pages/ExploreScreen';
-import SettingScreen from './pages/SettingScreen';
+import HomeScreen from './app/src/pages/HomeScreen';
+import ExploreScreen from './app/src/pages/ExploreScreen';
+import SettingScreen from './app/src/pages/SettingScreen';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
