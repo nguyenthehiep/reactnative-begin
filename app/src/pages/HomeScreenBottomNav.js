@@ -21,15 +21,13 @@ const HomeScreen = ({ navigation }) => {
             }}>
             Home Screen
           </Text>
-
           <Button
-            onPress={() => navigation.navigate('ProfileScreen')}
-            title="Go to Profile Screen"
+            onPress={() => navigation.navigate('SettingScreenStack')}
+            title="Go to Setting Screen"
           />
-          
           <Button
-            onPress={() => navigation.navigate('CartScreen')}
-            title="Go to Cart Screen"
+            onPress={() => navigation.navigate('ExploreScreen')}
+            title="Go to Explore Screen"
           />
         </View>
         <Text style={{ fontSize: 18, textAlign: 'center', color: 'grey' }}>

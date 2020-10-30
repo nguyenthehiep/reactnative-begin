@@ -13,14 +13,21 @@ const ProfileScreen = ({ navigation }) => {
             alignItems: 'center',
             justifyContent: 'center',
           }}>
-          <Text
-            style={{
-              fontSize: 25,
-              textAlign: 'center',
-              marginBottom: 16
-            }}>
-            Profile Screen
-          </Text>          
+          <Button
+            onPress={() => navigation.navigate('SigninScreen')}
+            title="Sign In"
+          />
+
+          <Button
+            onPress={() => navigation.navigate('SignoutScreen')}
+            title="Sign Out"
+          />
+
+          <Button
+            onPress={() => navigation.goBack()}
+            title="Go Back"
+          />
+
         </View>
         <Text style={{ fontSize: 18, textAlign: 'center', color: 'grey' }}>
           React Navigate Drawer with Bottom Tab

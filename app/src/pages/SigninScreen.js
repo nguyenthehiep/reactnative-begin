@@ -3,10 +3,10 @@
 import * as React from 'react';
 import { Button, View, Text, SafeAreaView } from 'react-native';
 
-const HomeScreen = ({ navigation }) => {
+const SigninScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <View style={{ flex: 1 , padding: 16}}>
+      <View style={{ flex: 1, padding: 16 }}>
         <View
           style={{
             flex: 1,
@@ -19,18 +19,12 @@ const HomeScreen = ({ navigation }) => {
               textAlign: 'center',
               marginBottom: 16
             }}>
-            Home Screen
+            Sign In Screen
           </Text>
-
           <Button
-            onPress={() => navigation.navigate('ProfileScreen')}
-            title="Go to Profile Screen"
-          />
-          
-          <Button
-            onPress={() => navigation.navigate('CartScreen')}
-            title="Go to Cart Screen"
-          />
+            onPress={() => navigation.goBack()}
+            title="Go Back"
+          />          
         </View>
         <Text style={{ fontSize: 18, textAlign: 'center', color: 'grey' }}>
           React Navigate Drawer with Bottom Tab
@@ -44,4 +38,4 @@ const HomeScreen = ({ navigation }) => {
   );
 }
 
-export default HomeScreen;
+export default SigninScreen;
