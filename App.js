@@ -9,10 +9,13 @@ import { NavigationContainer, getFocusedRouteNameFromRoute } from '@react-naviga
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 import HomeScreen from './app/src/pages/HomeScreen';
-import ExploreScreen from './app/src/pages/ExploreScreen';
-import SettingScreen from './app/src/pages/SettingScreen';
+import ContactScreen from './app/src/pages/ContactScreen';
+
+import CartScreen from './app/src/pages/CartScreen';
+import ProfileScreen from './app/src/pages/ProfileScreen';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -46,6 +49,12 @@ function getHeaderTitle(route) {
       return 'Home';
     case 'ExploreScreen':
       return 'Explore';
+    case 'ProfileScreen':
+      return 'User Profile';
+    case 'ContactScreen':
+      return 'Contact';
+    case 'CartScreen':
+      return 'Cart';
     case 'BottomTabStack':
       return 'Home';
   }
@@ -55,6 +64,29 @@ function BottomTabStack() {
   return (
     <Tab.Navigator
       initialRouteName="HomeScreen"
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+        let iconName;
+        if (route.name === 'HomeScreen') {
+            iconName = focused        
+            ? 'home'
+            : 'home';
+          } else if (route.name === 'ExploreScreen') {
+            iconName = focused
+            ? 'search'
+            : 'search';
+          } else if (route.name === 'CartScreen') {
+            iconName = focused
+            ? 'cart'
+            : 'cart';
+          } else if (route.name === 'ProfileScreen') {
+            iconName = focused
+            ? 'person'
+            : 'person';
+          }
+          return <Icon name={iconName} size={size} color={color} />;
+        },
+      })}
       tabBarOptions={{
         activeTintColor: 'tomato',
         inactiveTintColor: 'gray',
@@ -70,20 +102,30 @@ function BottomTabStack() {
         name="HomeScreen"
         component={HomeScreen}
         options={{
-          tabBarLabel: 'Home Screen',
+          tabBarLabel: 'Home',
           // tabBarIcon: ({ color, size }) => (
           //   <MaterialCommunityIcons name="home" color={color} size={size} />
           // ),
         }}  />
+
       <Tab.Screen
-        name="ExploreScreen"
-        component={ExploreScreen}
+        name="ProfileScreen"
+        component={ProfileScreen}
         options={{
-          tabBarLabel: 'Explore Screen',
+          tabBarLabel: 'User',
           // tabBarIcon: ({ color, size }) => (
           //   <MaterialCommunityIcons name="settings" color={color} size={size} />
           // ),
         }} />
+      <Tab.Screen
+        name="CartScreen"
+        component={CartScreen}
+        options={{
+          tabBarLabel: 'Cart',
+          // tabBarIcon: ({ color, size }) => (
+          //   <MaterialCommunityIcons name="settings" color={color} size={size} />
+          // ),
+        }} />        
     </Tab.Navigator>
   );
 }
@@ -92,7 +134,7 @@ function HomeScreenStack({ navigation }) {
   return (
     <Stack.Navigator initialRouteName="HomeScreen">
       <Stack.Screen
-        name="BottomTabStack"
+        name="HomeScreen"
         component={BottomTabStack}
         options={({ route }) => ({
           headerTitle: getHeaderTitle(route),
@@ -106,14 +148,31 @@ function HomeScreenStack({ navigation }) {
           },
         })}
       />
+
+      <Stack.Screen
+        name="ProfileScreen"
+        component={ProfileScreenStack}
+        options={({ route }) => ({
+          headerTitle: getHeaderTitle(route),
+          headerLeft: ()=> <NavigationDrawerStructure navigationProps={navigation} />,
+          headerStyle: {
+            backgroundColor: '#f4511e', //Set Header color
+          },
+          headerTintColor: '#fff', //Set Header text color
+          headerTitleStyle: {
+            fontWeight: 'bold', //Set Header text style
+          },
+        })}
+      />
+      
     </Stack.Navigator>
   );
 }
 
+/*
 function SettingScreenStack({ navigation }) {
   return (
-    <Stack.Navigator
-      initialRouteName="SecondPage"
+    <Stack.Navigator      
       screenOptions={{
         headerLeft: ()=> <NavigationDrawerStructure navigationProps={navigation} />,
         headerStyle: {
@@ -128,9 +187,88 @@ function SettingScreenStack({ navigation }) {
         name="SettingScreen"
         component={SettingScreen}
         options={{
-          title: 'Setting', //Set Header Title
+          title: 'Setting on Setting Stack', //Set Header Title
           
         }}/>
+    </Stack.Navigator>
+  );
+}
+
+function ExploreScreenStack({ navigation }) {
+  return (
+    <Stack.Navigator      
+      screenOptions={{
+        headerLeft: ()=> <NavigationDrawerStructure navigationProps={navigation} />,
+        headerStyle: {
+          backgroundColor: '#f4511e', //Set Header color
+        },
+        headerTintColor: '#fff', //Set Header text color
+        headerTitleStyle: {
+          fontWeight: 'bold', //Set Header text style
+        }
+      }}>
+      <Stack.Screen
+        name="SettingScreen"
+        component={SettingScreen}
+        options={{
+          title: 'Setting on Explorer Stack', //Set Header Title
+          
+        }}/>
+      <Stack.Screen
+        name="HomeScreen"
+        component={HomeScreen}
+        options={{
+          title: 'Home on Explorer Stack', //Set Header Title
+          
+        }}/>  
+    </Stack.Navigator>
+  );
+}*/
+
+function ProfileScreenStack({ navigation }) {
+  return (
+    <Stack.Navigator      
+      screenOptions={{
+        headerLeft: ()=> <NavigationDrawerStructure navigationProps={navigation} />,
+        headerStyle: {
+          backgroundColor: '#f4511e', //Set Header color
+        },
+        headerTintColor: '#fff', //Set Header text color
+        headerTitleStyle: {
+          fontWeight: 'bold', //Set Header text style
+        }
+      }}>
+      <Stack.Screen
+        name="ProfileScreen"
+        component={ProfileScreen}
+        options={{
+          title: 'User', //Set Header Title
+          
+        }}/>      
+    </Stack.Navigator>
+  );
+}
+
+function ContactScreenStack({ navigation }) {
+  return (
+    <Stack.Navigator      
+      screenOptions={{
+        headerLeft: ()=> <NavigationDrawerStructure navigationProps={navigation} />,
+        headerStyle: {
+          backgroundColor: '#f4511e', //Set Header color
+        },
+        headerTintColor: '#fff', //Set Header text color
+        headerTitleStyle: {
+          fontWeight: 'bold', //Set Header text style
+        }
+      }}>
+      <Stack.Screen
+        name="ContactScreen"
+        component={ContactScreen}
+        options={{
+          title: 'Contact', //Set Header Title
+          
+        }}/>      
     </Stack.Navigator>
   );
 }
@@ -145,12 +283,17 @@ function App() {
         }}>
         <Drawer.Screen
           name="HomeScreenStack"
-          options={{ drawerLabel: 'Home Screen Option' }}
+          options={{ drawerLabel: 'Home' }}
           component={HomeScreenStack} />
         <Drawer.Screen
-          name="SettingScreenStack"
-          options={{ drawerLabel: 'Setting Screen Option' }}
-          component={SettingScreenStack} />
+          name="ProfileScreenStack"
+          options={{ drawerLabel: 'Profile' }}
+          component={ProfileScreenStack} />
+        <Drawer.Screen
+          name="ContactScreenStack"
+          options={{ drawerLabel: 'Contact' }}
+          component={ContactScreenStack} />
+        
       </Drawer.Navigator>
     </NavigationContainer>
   );

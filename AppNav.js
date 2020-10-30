@@ -12,24 +12,24 @@ const Tab = createBottomTabNavigator();
 function HomeScreen() {
   return (
     <Tab.Navigator
-    screenOptions={({ route }) => ({
-      tabBarIcon: ({ focused, color, size }) => {
-     let iconName;
-     if (route.name === 'TabA') {
-        iconName = focused        
-        ? 'airplane'
-        : 'ios-information-circle-outline';
-      } else if (route.name === 'TabB') {
-        iconName = focused
-        ? 'reader'
-        : 'ios-list';
-      }
-      return <Icon name={iconName} size={size} color={color} />;
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+        let iconName;
+        if (route.name === 'TabA') {
+            iconName = focused        
+            ? 'airplane'
+            : 'ios-information-circle-outline';
+          } else if (route.name === 'TabB') {
+            iconName = focused
+            ? 'reader'
+            : 'ios-list';
+          }
+          return <Icon name={iconName} size={size} color={color} />;
         },
       })}
       tabBarOptions={{
-      activeTintColor: 'tomato',
-      inactiveTintColor: 'gray',
+        activeTintColor: 'tomato',
+        inactiveTintColor: 'gray',
       }}
     >
         <Tab.Screen name="TabA" component={TabAScreen} />
