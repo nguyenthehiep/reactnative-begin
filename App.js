@@ -3,7 +3,8 @@
 import 'react-native-gesture-handler';
 
 import * as React from 'react';
-import { Button, View, Text, TouchableOpacity, Image } from 'react-native';
+import { View, TouchableOpacity, Image } from 'react-native';
+import { AsyncStorage } from '@react-native-community/async-storage';
 
 import { NavigationContainer, getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -20,6 +21,15 @@ import SigninScreen from './app/src/pages/SigninScreen';
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
+const AuthContext = React.createContext();
+
+function SplashScreen() {
+  return (
+    <View>
+      <Text>Loading...</Text>
+    </View>
+  );
+}
 
 const NavigationDrawerStructure = (props)=> {
   //Structure for the navigatin Drawer
