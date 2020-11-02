@@ -359,32 +359,36 @@ function App() {
             component={HomeScreenStack} />  
 
           {state.isLoading ? (
+            <>
             // We haven't finished checking for the token yet
             <Drawer.Screen
             name="SplashScreen"
             options={{ drawerLabel: 'Loading...' }}
             component={SplashScreen} />  
-            
+            </>
           ) : state.userToken == null ? (
             // No token found, user isn't signed in
+            <>
             <Drawer.Screen
             name="SigninScreenStack"
             options={{ drawerLabel: 'Sign In' }}
             component={SigninScreenStack} />  
+            </>
           ) : (
             // User is signed in
-            
+            <>
             <Drawer.Screen
             name="ProfileScreenStack"
             options={{ drawerLabel: 'User' }}
             component={ProfileScreenStack} />          
-          )
-          }      
-          
-          <Drawer.Screen
+            <Drawer.Screen
             name="ContactScreenStack"
             options={{ drawerLabel: 'Contact' }}
             component={ContactScreenStack} />
+            </>
+          )
+          }
+          
 
         </Drawer.Navigator>
       </NavigationContainer>
